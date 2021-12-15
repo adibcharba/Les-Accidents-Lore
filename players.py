@@ -1,4 +1,4 @@
-from basics import screenClear, pressEnter, confirm
+from basics import screenClear, pressEnter, slowType, confirm
 import colours as c
 import time
 import random as r
@@ -60,7 +60,7 @@ class Adib():
         self.agility = 3
         self.hp = 100
         self.name = 'Adib'
-        #self.moto = "Mumei best girl >:)"
+        self.moto = "Mumei best girl >:)"
     #def levelUp(self):
         #for i in self.stats:
             #i += 1
@@ -78,7 +78,7 @@ class Mathieu():
         self.agility = 2
         self.hp = 100
         self.name = 'Mathieu'
-        #self.moto = "Looks like I'm gonna have to Miracle Johnson on you."
+        self.moto = "Looks like I'm gonna have to Miracle Johnson on you."
 
     def __repr__(self):
         return stats(self)
@@ -93,7 +93,7 @@ class Jacob():
         self.agility = 5
         self.hp = 100
         self.name = 'Jacob'
-        #self.moto = "I'm gonna Dust-eze out of here, the fish are calling me. *SCREECH*"
+        self.moto = "I'm gonna Dust-eze out of here, the fish are calling me. *SCREECH*"
 
     def __repr__(self):
         return stats(self)
@@ -108,7 +108,7 @@ class Ali():
         self.agility = 2
         self.hp = 100
         self.name = 'Ali-Hassan'
-        #self.moto = "MY FEET ARE NUMB MAN! UEEEAAAAAAAHHHHHHHH!!"
+        self.moto = "MY FEET ARE NUMB MAN! UEEEAAAAAAAHHHHHHHH!!"
 
     def __repr__(self):
         return stats(self)
@@ -138,7 +138,7 @@ class Hussein():
         self.agility = 3
         self.hp = 100
         self.name = 'Hussein'
-        #self.moto = "Ayo fait attention sinon je vais te sucer les fesses >:)"
+        self.moto = "Ayo fait attention sinon je vais te sucer les fesses >:)"
 
     def __repr__(self):
         return stats(self)
@@ -185,10 +185,18 @@ def battle(player, opponent):
     print("4)Cover your left.\n5)Cover your right.\n6)Brace yourself for the hit.")
     c.red("Other:")
     print("7)Run away.\n8)Beg for mercy/surrender.\n\n")
-
-    choices = []
-    choices.append(str(input("Enter the number code of the action you want to take: ")))
-
+    while True:
+        choices = []
+        choices.append(str(input("Enter the number code of the action you want to take: ")))
+        if int(choices[0]) < 1 or int(choices[0]) > 8:
+            c.red("Please input a number displayed.")     
+            time.sleep(1.5)
+            print("\033[A                                   \033[A") #reverts a line
+            print("\033[A\033[A") #reverts a second line to reask the quesion without reprinting all the choices
+        else:
+            break
+    
+    
     #below is the opponent decision algorithm
 
   #IT IS UNFINISHED FOR NOW  also dont worry i will optimise it with match cases later
@@ -214,9 +222,9 @@ def battle(player, opponent):
                 elif choices[0] <= '4' and choices[0] >= '6':
                     choices.append(r.randint(4,6)) #if player blocks, then attack
        
-            
+
             else:
-                choices.append(str(r.randint(1,6))) #makes a random decision (will not choose run or surrender because.. they're being stupid :))
+                choices.append((r.randint(1,6))) #makes a random decision (will not choose run or surrender because.. they're being stupid :))
         else:
             choices.append(0)
     else:
@@ -233,144 +241,135 @@ def battle(player, opponent):
                 rand = r.randint(4,7)
                 dmgP = (rand*opponent.attack)//player.defence
                 dmgO = (rand*player.attack)//opponent.defence
-                print("You both throw a punch at each other.\nYou inflicted \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m point of dammage while taking \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m back.")  
+                slowType("You both throw a punch at each other.\nYou inflicted \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m point of dammage while taking \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m back.")  
             else:
-                print("You both try to throw a punch at each other, however both powers cancel each other out thus causing \033[1;31;48mno dammage \033[1;37;48mto be done at all.")
+                slowType("You both try to throw a punch at each other, however both powers cancel each other out thus causing \033[1;31;48mno dammage \033[1;37;48mto be done at all.")
         case '2', 1: 
-            print(choices)
-            
+            slowType("You show off your dance-fighting skills but only manage to intercept "+opponent.name+"'s flying fist causing \033[1;31;48mno dammage \033[1;37;48mto be done.")
+    
         case '3', 1:
-            dmgO = (r.randint(6,8)*player.attack)//opponent.defence
-            print("You drop kick on", opponent.name, ", kocking a tooth out and inflicting \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m points of dammage.")
+            dmgO = (r.randint(12,15)*player.attack)//opponent.defence
+            slowType("You drop kick on "+opponent.name+", kocking a tooth out and inflicting \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m points of dammage.")
             
         case '4', 1:
-            print(opponent.name, "attempted to send a punch to your face, but you successfully blocked it with yo mousklees.")
+            slowType(opponent.name+" attempted to send a punch to your face, but you successfully blocked it with yo mousklees.")
             
         case '5', 1:
             dmgP = (r.randint(4,7)*opponent.attack)//player.defence
-            print("You try put up your guard on your right, but", opponent.name, "sends a punch to your left dealing you \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
-            
-        case '6', 1:
-            print(choices)
+            slowType("You try put up your guard on your right, but", opponent.name, "sends a punch to your left dealing you \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
 
-
-            
         case '1', 2: #player: punch, opp: bd
             rand = r.randint(3,6)
             dmgP = (rand*opponent.attack)//player.defence
-            print("You attemp to throw a punch but ",opponent.name, "sweeps you off your feet with a low kick.\nYou were inflicted with \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
+            slowType("You attemp to throw a punch but "+opponent.name+" sweeps you off your feet with a low kick.\nYou were inflicted with \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
             
         case '2', 2:
-            print(choices)
+            slowType("You try to do a nice high kick with style, but notice that "+opponent.name+" is doing the exact same and you both end up just dancing, causing \033[1;31;48mno dammage \033[1;37;48mto be done. IS THIS A DANCE OFF OR WHAT??!")
             
         case '3', 2:
-            print(choices)
+            dmgP = (r.randing(5,11)*opponent.attack)//player.defence
+            slowType("You jump high in the air to land a drop kick on "+opponent.name+".\nBut he saw it coming. He punched your leg not the way its supposed to go before you could land your hit. Dealing you \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
             
         case '4', 2:
-            print(choices)
+            dmgP = (r.randint(7,12)*opponent.attack)//player.defence
+            slowType('"'+opponent.moto+'!" screams'+opponent.name+'.\nWhile you foolishly attempt to cover your left side, '+opponent.name+' does an impressive spin kick and kocks you on the ground dealing you \033[1;31;48m'+str(dmgP)+'00000\033[1;37;48m points fo dammage.') 
             
         case '5', 2:
-            print(choices)
-            
-        case '6', 2:
-            print(choices)
-
-            
-
+            slowType(opponent.name+" attemps to do an upsidedown kick in ya face!\nBut this time, you were ready and successfully blocked it causing \033[1;31;48mno dammage \033[1;37;48mto be dealt at all.")
 
         case '1', 3:
-            dmgP = (r.randint(6,8)*opponent.attack)//player.defence
-            print("You block your left, but all you see is an eclipse of ", opponent.name, " falling from the sky and drop kicking the life outta you dealing \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
+            slowType("You throw a punch")
             
         case '2', 3:
-            print(choices)
+            pass
             
         case '3', 3:
-            print(choices)
+            pass
             
         case '4', 3:
-            print(choices)
+            dmgP = (r.randint(12,15)*opponent.attack)//player.defence
+            slowType("You block your left, but all you see is an eclipse of "+ opponent.name+" falling from the sky and drop kicking the life outta you dealing \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
             
         case '5', 3:
-            print(choices)
+            pass
             
-        case '6', 3:
-            print(choices)
-
-            
-
 
         case '1', 4:
-            print(choices)
+            pass
             
         case '2', 4:
-            print(choices)
+            pass
             
         case '3', 4:
-            print(choices)
+            pass
 
             
 
 
         case '1', 5:
-            print(choices)
+            pass
             
         case '2', 5:
-            print(choices)
+            pass
             
         case '3', 5:
-            print(choices)
+            pass
 
+
+        case '6', 1 | '6', 2 | '6', 3:
+            dmgO = ((r.randint(1,3))*player.attack)//opponent.defence
+            slowType("You brace yourself, preparing for whatever comes.\n"+opponent.name+"takes a good smack at you. However, thanks to your mental preperation, you took a small"+str(smgO)+"points of dammage.")
 
         case '1', 6 | '2', 6 | '3', 6: #player: punch/bd/dk, opp: braced
             dmgP = ((r.randint(1,3))*opponent.attack)//player.defence
-            print(opponent.name, "braced himself for the attack.\nYou swiftly preform your signiture move!\nYou inflicted a total of \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
+            slowType(opponent.name+"braced himself for the attack.\nYou swiftly preform your signiture move!\nYou inflicted a total of \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
             
 
         case '0', 8:
-            print(opponent.name, "begs you for mercy.")
+            slowType(opponent.name, "begs you for mercy.")
             if player.charisma > opponent.charisma:
-                print("Because of your supperior amount of charisma, you spare him and accept and easy win.")
+                slowType("\nThanks to your supperior amount of charisma, you spare him and accept and \033[1;31;48measy win\033[1;37;48m.")
             else:
                 dmgO = 100
-                print("You disregard his pathetic begging and prepare yourself to throw the final blow.")
+                slowType("You disregard his pathetic begging and prepare yourself to throw the final blow.")
 
         case '8', 0:
-            print("You beg for mercy, surrendering your pride.")
+            slowType("You beg for mercy, surrendering your pride.")
             if opponent.charisma > player.charisma:
-                print("with", opponent.name, "and his outstanding amount of charisma, he spares you. You must now accept defeat.")
+                slowType("\nWith "+opponent.name+"'s outstanding amount of charisma, he spares you. \033[1;31;48mYou must now accept defeat.\033[1;37;48m")
             else:
                 dmgP = 100
-                print(opponent.name ,", not showing any signs of empathy kicks you arross the face while you lay there on your knees. Making you release your last breath.")
+                slowType(opponent.name+", not showing any signs of empathy kicks you arross the face while you lay there on your knees. Making you release your last breath.")
                     
         case '7', 0:
             if player.agility > opponent.agility:
-                print("You succefully ran away like the coward you are.")
+                slowType("You succefully ran away like the coward you are.")
             else:
-                print(opponent.name, "caught you by the leg and dragged you back to continue the fight. Not today ya coward.")
+                slowType(opponent.name+" caught you by the leg and dragged you back to continue the fight. Not today, coward.")
         case '0', 7:
             if oppoenent.agility > player.agility:
-                print("Darn..", opponent.name, "\033[1;31;48mgot away \033[1;37;48m.")
+                slowType("Darn.. "+opponent.name+"\033[1;31;48m got away \033[1;37;48m.")
             else:
-                print("You caught up to", opponent.moto, "and dragged him by the leg to finish the fight. Not today cheif.")
+                slowType("You caught up to "+opponent.name+" and dragged him by the leg to finish the fight. Not today cheif.")
 
         case '4', 4 | '5', 4 | '6', 4 | '4', 5 | '5', 5 | '6', 5 | '4', 6 | '5', 6 | '6', 6: #for any case that has both sides chosing a defensive move
-            print("You both played defensively causing \033[1;31;48mno dammage \033[1;37;48mto be done at all.")
+            slowType("You both played defensively causing \033[1;31;48mno dammage \033[1;37;48mto be done at all.")
 
         case _:
-            c.red("Please input a number displayed.")     
-            time.sleep(1.5)
+            c.red("An error occured. Please Try again.")     
+            pressEnter()
     
     opponent.hp -= dmgO
     player.hp -= dmgP
-    print("\nYour HP:")
+    print("\n\nYour HP:")
     healthBar(player)
-    print("\nOpponent's HP:")
+    print("\n"+opponent.name+"'s HP:")
     healthBar(opponent)
-    #if opponent.hp <= 0:
-    
+    if opponent.hp <= 0:
+        slowType("\033[1;36;48mYou win.\033[1;37;48m", 0.6)
+    elif player.hp <= 0:
+        slowType("\033[1;31;48mYou lost.\033[1;37;48m", 0.6)
     pressEnter()
-
 
 
     #if opponent.hp <= 0:

@@ -27,5 +27,3 @@ def pink(text):
 #writes cyan text
 def cyan(text):
     print("\033[1;36;48m" + str(text) + "\033[1;37;48m")
-
-#where's the level up function?
