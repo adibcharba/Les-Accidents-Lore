@@ -207,11 +207,14 @@ def battle(player, opponent):
                 elif choices[0] >= '5' and choices[0] <= '6':
                     choices.append(r.randint(1,3)) #if player blocks, then attack
         
+
             elif opponent.intellect == player.intellect: #makes a mediocre decision
                 if choices[0] >= '3':
                     choices.append(r.randint(1,3)) #if player attack, then Block
                 elif choices[0] <= '4' and choices[0] >= '6':
                     choices.append(r.randint(4,6)) #if player blocks, then attack
+       
+            
             else:
                 choices.append(str(r.randint(1,6))) #makes a random decision (will not choose run or surrender because.. they're being stupid :))
         else:
@@ -221,8 +224,9 @@ def battle(player, opponent):
     dmgO = 0 #dmg done to opponent
     dmgP = 0 #dmg done to player
     rand = 0 #the 'random' variable, see dmg calculator in any case below
+    battleOver = False
     screenClear()
-    print(choices)
+    print(choices) #REMOVE LATER
     match choices:
         case '1', 1: #player: punch, opp: punch
             if r.randint(1,2) == 1:
@@ -249,10 +253,6 @@ def battle(player, opponent):
         case '6', 1:
             print(choices)
 
-            
-        case '8', 1:
-            print(choices)
-            
 
             
         case '1', 2: #player: punch, opp: bd
@@ -276,9 +276,6 @@ def battle(player, opponent):
             print(choices)
 
             
-        case '8', 2:
-            print(choices)
-            
 
 
         case '1', 3:
@@ -301,9 +298,6 @@ def battle(player, opponent):
             print(choices)
 
             
-        case '8', 3:
-            print(choices)
-            
 
 
         case '1', 4:
@@ -316,9 +310,6 @@ def battle(player, opponent):
             print(choices)
 
             
-        case '8', 4:
-            print(choices)
-            
 
 
         case '1', 5:
@@ -330,23 +321,27 @@ def battle(player, opponent):
         case '3', 5:
             print(choices)
 
-            
-        case '8', 5:
-            print(choices)
-            
-
 
         case '1', 6 | '2', 6 | '3', 6: #player: punch/bd/dk, opp: braced
             dmgP = ((r.randint(1,3))*opponent.attack)//player.defence
             print(opponent.name, "braced himself for the attack.\nYou swiftly preform your signiture move!\nYou inflicted a total of \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m points of dammage.")
             
-        case '8', 6:
-            print(choices)
 
-            print("You both beg for mercy.. well.. this is awkward.")
-            
-        case '1', 8 | '2', 8 | '3', 8 | '4', 8 | '5', 8 | '6', 8 | '8', 8:
+        case '0', 8:
             print(opponent.name, "begs you for mercy.")
+            if player.charisma > opponent.charisma:
+                print("Because of your supperior amount of charisma, you spare him and accept and easy win.")
+            else:
+                dmgO = 100
+                print("You disregard his pathetic begging and prepare yourself to throw the final blow.")
+
+        case '8', 0:
+            print("You beg for mercy, surrendering your pride.")
+            if opponent.charisma > player.charisma:
+                print("with", opponent.name, "and his outstanding amount of charisma, he spares you. You must now accept defeat.")
+            else:
+                dmgP = 100
+                print(opponent.name ,", not showing any signs of empathy kicks you arross the face while you lay there on your knees. Making you release your last breath.")
                     
         case '7', 0:
             if player.agility > opponent.agility:
@@ -370,8 +365,10 @@ def battle(player, opponent):
     player.hp -= dmgP
     print("\nYour HP:")
     healthBar(player)
-    print("\nOpponents HP:")
+    print("\nOpponent's HP:")
     healthBar(opponent)
+    #if opponent.hp <= 0:
+    
     pressEnter()
 
 

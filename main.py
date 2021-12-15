@@ -16,7 +16,7 @@ while True:
             pressEnter()
             player = p.Adib()
             print(player)
-            p.battle(player, p.Hadi())
+            p.battle(player, p.Hadi()) #REMOVE LATER
             if confirm() == True:
                 break
         case '2':
@@ -26,6 +26,7 @@ while True:
             pressEnter()
             player = p.Mathieu()
             print(player)
+            p.battle(player, p.Hussein())
             if confirm() == True:
                 break
         case '3':
