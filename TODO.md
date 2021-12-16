@@ -19,4 +19,6 @@ NOTES:
 
 
 im thinking that we put many subchapters to act as checkpoints (jacob)
-was thinking that in chapter one the fights could be Les Boyeez TM fighting the paintings in the art project
+
+
+was thinking that in chapter one the fights could be Les Boyeez TM fighting the paintings in the art project (ali)
