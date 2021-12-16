@@ -12,6 +12,8 @@ Jacob:
 Ali:
 - story for chapter one
 
+Mathieu:
+- fix the defence brokeness 
 
 
 

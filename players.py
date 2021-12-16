@@ -209,7 +209,7 @@ def battle(player, opponent):
         if choices[0] != '7':
             if choices[0] != '8':
                 if opponent.intellect > player.intellect: #opponent makes a 'smart' decision
-                    if opponent.hp < 10: #if the opponent has low hp, they try to run or surrender
+                    if opponent.hp <= 15: #if the opponent has low hp, they try to run or surrender
                         choices = []
                         choices.append('0')
                         if r.randint(1,2) == 1:
@@ -217,20 +217,21 @@ def battle(player, opponent):
                         else:
                             choices.append(8) #they surrender
                     elif choices[0] <= '3':
-                        choices.append(r.randint(4,6)) #if player attack, then Block
+                        if r.randint(1,4) == 2: #one on four chances of not blocking
+                            choices.append(r.randint(1,3))
+                        else:
+                            choices.append(r.randint(4,6)) #if player attack, then Block
                     elif choices[0] >= '5' and choices[0] <= '6':
-                        choices.append(r.randint(1,3)) #if player blocks, then attack
-            
-
-                elif opponent.intellect == player.intellect: #makes a mediocre decision
-                    if choices[0] >= '3':
-                        choices.append(r.randint(1,3)) #if player attack, then Block
-                    elif choices[0] <= '4' and choices[0] >= '6':
-                        choices.append(r.randint(4,6)) #if player blocks, then attack
-        
-
+                        if r.randint(1,4) == 2: #one on four chances of not attacking
+                            choices.append(r.randint(4,6))
+                        else:
+                            choices.append(r.randint(1,3)) #if player blocks, then attack
+                    
                 else:
-                    choices.append((r.randint(1,6))) #makes a random decision (will not choose run or surrender because.. they're being stupid :))
+                    if r.randint(1,3): 
+                        choices.append((r.randint(1,6)))
+                    else:
+                        choices.append((r.randint(1,8)))
             else:
                 choices.append(0)
         else:
@@ -325,8 +326,8 @@ def battle(player, opponent):
                 slowType("You make your opponent commit to a right block, but you strike, pouncing like a tiger and tackling them forward, knocking the air out of them and smashing your fist into their ribs, doing \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m damage.")
 
             case ['6', 1] | ['6', 2] | ['6', 3]: #player braces
-                dmgO = ((r.randint(5,7))*player.attack)//opponent.defence
-                slowType("You brace yourself, preparing for whatever comes.\n"+opponent.name+" takes a good smack at you. However, thanks to your mental preperation, you took a small \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m points of damage.")
+                dmgp = ((r.randint(5,7))*player.attack)//opponent.defence
+                slowType("You brace yourself, preparing for whatever comes.\n"+opponent.name+" takes a good smack at you. However, thanks to your mental preperation, you took a small \033[1;31;48m"+str(dmgp)+"00000\033[1;37;48m points of damage.")
 
             case ['1', 6] | ['2', 6] | ['3', 6]: #opponent braces
                 dmgO = ((r.randint(5,7))*player.attack)//opponent.defence
@@ -348,15 +349,17 @@ def battle(player, opponent):
                     slowType("\nWith "+opponent.name+"'s outstanding amount of charisma, he spares you. \033[1;31;48mYou must now accept defeat.\033[1;37;48m")
                 else:
                     dmgP = 100
-                    slowType(opponent.name+", looks at you with disdain, and cruelly laughs as he lift you up from the neck with a single arm. As he crushes your windpipe with an iron grip, your world goes dark, you have \033[1;31;48m lost the fight\033[1;37;48m.")
+                    slowType("\n"+opponent.name+", looks at you with disdain, and cruelly laughs as he lift you up from the neck with a single arm. As he crushes your windpipe with an iron grip, your world goes dark, you have \033[1;31;48mlost the fight\033[1;37;48m.")
                     
             case '7', 0: #player runs
                 if player.agility > opponent.agility:
+                    battleOver = 1
                     slowType("You succefully ran away like the coward you are.")
                 else:
                     slowType(opponent.name+" caught you by the leg and dragged you back to continue the fight. Not today, coward.")
             case '0', 7: #opponent runs
                 if oppoenent.agility > player.agility:
+                    battleOver = 2
                     slowType("Darn.. "+opponent.name+"\033[1;31;48m got away \033[1;37;48m.")
                 else:
                     slowType("You caught up to "+opponent.name+" and dragged him by the leg to finish the fight. Not today cheif.")
@@ -369,16 +372,21 @@ def battle(player, opponent):
     
         opponent.hp -= dmgO
         player.hp -= dmgP
+        if opponent.hp <= 0 and player.hp <= 0:
+            battleOver = 3  #if its a tie
+            opponent.hp = 0
+            player.hp = 0
+        elif opponent.hp <= 0:
+            battleOver = 2  #if opponent is dead
+            opponent.hp = 0
+        elif player.hp <= 0:
+            battleOver = 1  #if player is dead
+            player.hp = 0
         print("\n\nYour HP:")
         healthBar(player)
         print("\n"+opponent.name+"'s HP:")
         healthBar(opponent)
-        if opponent.hp <= 0 and player.hp <= 0:
-            battleOver = 3  #if its a tie
-        elif opponent.hp <= 0:
-            battleOver = 2  #if opponent is dead
-        elif player.hp <= 0:
-            battleOver = 1  #if player is dead
+
         pressEnter()
 
     if battleOver == 2:
