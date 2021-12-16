@@ -5,7 +5,7 @@ Adib:
 - move battle() to battle.py ???
 
 Jacob:
-- finish battle()
+- update opponent algorithm
 - implement levels
 - make levelup()
 
