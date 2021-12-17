@@ -76,7 +76,11 @@ while True:
             if confirm() == True:
                 break
         case 'd' | 'debug': #REMOVE WHEN DONE
-            p.battle(p.Hussein(), p.Hadi())
+            while True:
+                a = int(input("oi place a number"))
+                p.xpBar(p.Jacob(), a)
+                pressEnter()
+            #p.battle(p.Hussein(), p.Hadi())
         case _:
             c.red("Please input a number displayed.")        
             time.sleep(1.5)

@@ -50,6 +50,24 @@ def healthBar(self):
     hpAmount += "| "+str(self.hp)+"%"
     print(hpAmount)
 
+def xpBar(self, xp):
+    xpAmountpre = '('
+    xpAmountnew = ''
+    xpAmountend = ''
+    xpTotal = self.xp + xp
+    for i in range(self.xp//2):
+        xpAmountpre += "■"
+    while xpTotal >= 100:
+        self.level += 1
+        xpTotal -= 100
+        xp -= 100
+    for i in range(xp//2):
+        xpAmountnew += "□"
+    for i in range((100 - xpTotal)//2):
+        xpAmountend += "-"
+    self.xp = xpTotal
+    print(xpAmountpre+xpAmountnew+xpAmountend+") "+str(xpTotal)+"%\nCurrent level: "+str(self.level)+"\nLevel up in: "+str(100-xpTotal)+"xp")
+
 class Adib():
     def __init__(self): #overall balanced
         screenClear()
@@ -59,6 +77,8 @@ class Adib():
         self.intellect = 2
         self.agility = 3
         self.hp = 100
+        self.xp = 0
+        self.level = 1
         self.name = 'Adib'
         self.moto = "Mumei best girl >:)"
     #def levelUp(self):
@@ -77,6 +97,8 @@ class Mathieu():
         self.intellect = 2
         self.agility = 2
         self.hp = 100
+        self.xp = 0
+        self.level = 1
         self.name = 'Mathieu'
         self.moto = "Looks like I'm gonna have to Miracle Johnson on you."
 
@@ -92,6 +114,8 @@ class Jacob():
         self.intellect = 2
         self.agility = 5
         self.hp = 100
+        self.xp = 0
+        self.level = 1
         self.name = 'Jacob'
         self.moto = "I'm gonna Dust-eze out of here, the fish are calling me. *SCREECH*"
 
@@ -107,6 +131,8 @@ class Ali():
         self.intellect = 0
         self.agility = 2
         self.hp = 100
+        self.xp = 0
+        self.level = 1
         self.name = 'Ali-Hassan'
         self.moto = "MY FEET ARE NUMB MAN! UEEEAAAAAAAHHHHHHHH!!"
 
@@ -122,6 +148,8 @@ class Hadi():
         self.intellect = 5
         self.agility = 2
         self.hp = 100
+        self.xp = 0
+        self.level = 1
         self.name = 'Hadi'
         #self.moto = "I'm gonna have to finish you, I don't care about your #DISTAVIE."
 
@@ -137,6 +165,8 @@ class Hussein():
         self.intellect = 1
         self.agility = 3
         self.hp = 100
+        self.xp = 0
+        self.level = 1
         self.name = 'Hussein'
         self.moto = "Ayo fait attention sinon je vais te sucer les fesses >:)"
 
