@@ -4,6 +4,15 @@ import colours as c
 import chapters as chap
 import players as p
 import time, os, sys
+#import pygame
+
+#fixed the pygame.base issue with 'pip3'
+#but now its confused with the event attribute.... i hate this
+
+#for event in pygame.event.get():
+ #   if event.type == pygame.KEYDOWN:
+  #      if event.key == pygame.K_RETURN:    
+   #         print("lmfao")
 
 while True:
     screenClear()
