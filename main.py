@@ -3,7 +3,7 @@ from basics import screenClear, pressEnter, confirm, slowType
 import colours as c
 import chapters as chap
 import players as p
-import time, os, sys
+import time, os, sys, json
 #import pygame
 
 #fixed the pygame.base issue with 'pip3'
@@ -76,11 +76,32 @@ while True:
             if confirm() == True:
                 break
         case 'd' | 'debug': #REMOVE WHEN DONE
+            #player = p.Hadi()
+            #p.levelUp(player)
+            #while True:
+                #a = int(input("oi place a number"))
+                #p.xpBar(p.Jacob(), a)
+                #pressEnter()
+            p.battle(p.Hussein(), p.Hadi())
+        case 's' | 'save': #REMOVE WHEN DONE
+            screenClear() #clear screen
+            for i in range(1, 4): #repeats 3 times for each slot (theres 3)
+                if os.path.isfile("LAL_saveSlots/slot"+str(i)+".txt"): #opens a file
+                    with open("LAL_saveSlots/slot"+str(i)+".txt") as save_file: data = json.load(save_file) #reads it
+                    for k in data['player']: name = k['character']; level = k['level'] #finds the name and level inside that save file
+                    print("Slot "+str(i)+": "+name+", Level "+level) #prints that muzaphuka
+                else: #if it does not find that file, it says empty
+                    print("Slot "+str(i)+": --Empty--")
+            
             while True:
-                a = int(input("oi place a number"))
-                p.xpBar(p.Jacob(), a)
-                pressEnter()
-            #p.battle(p.Hussein(), p.Hadi())
+                slotSelection = int(input("\nType the slot number of your save slot: ")) #asks what file you wanna use 
+                try: #tries the value inputted 
+                    with open("LAL_saveSlots/slot"+str(slotSelection)+".txt") as save_file:
+                        data = json.load(save_file)
+                        break
+                except: #if it fails then ask again
+                    c.red("Please input a number displayed.")
+                    time.sleep(1.5)
         case _:
             c.red("Please input a number displayed.")        
             time.sleep(1.5)

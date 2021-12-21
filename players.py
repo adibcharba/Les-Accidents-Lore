@@ -1,7 +1,8 @@
 from basics import screenClear, pressEnter, slowType, confirm
 import colours as c
-import time
+import battle as b
 import random as r
+import time
 
 def stats(self):
     atStat = "Attack:    "
@@ -41,8 +42,8 @@ def stats(self):
         agStat += "-"
     return str("Player Stats:\n\n"+atStat+"\n"+defStat+"\n"+charStat+"\n"+intStat+"\n"+agStat+"\nHealth Points: "+str(self.hp)+"\n")
 
-def healthBar(self):
-    hpAmount = '|'
+def healthBar(self): #when you want to display someone's health, just do healthBar(player) for example
+    hpAmount = self.name+'\'s HP:\n|'
     for i in range(self.hp//3):
         hpAmount += "■"
     for i in range((100 - self.hp)//3):
@@ -67,6 +68,35 @@ def xpBar(self, xp):
         xpAmountend += "-"
     self.xp = xpTotal
     print(xpAmountpre+xpAmountnew+xpAmountend+") "+str(xpTotal)+"%\nCurrent level: "+str(self.level)+"\nLevel up in: "+str(100-xpTotal)+"xp")
+
+
+def levelUp(self):
+  slowType("Congratulations monke man, you have levelled up!")
+  slowType("What would you like to improve? You have one",level_point,"to spend.\n"
+  "A --- ATK"
+  "B --- DEF"
+  "C --- INT"
+  "D --- CHA"
+  "E --- AGI")
+  levelChoice=input()
+  try:
+    if levelChoice=="A" or "ATK":
+      self.attack+=1
+      slowType("You have levelled up your attack. Congratulations, may you clap the cheeks of your enemies. Your attack is now", self.attack,".")
+    elif levelChoice=="B" or "DEF":
+      self.defence+=1
+      slowType("You have levelled up your defense. Congratulations, may you be able to tank more damage, you filthy masoschist. Your defense is now",self.attack,".")
+    elif levelChoice=="C" or "INT":
+      self.intellect+=1
+      slowType("You have levelled up your intellect. Congratulations, you are evolving from monke to ape, may your gorilla powers manifest themselves. Your intellect is now",self.intellect,".")
+    elif levelChoice=="D" or "CHA":
+      self.charisma+=1
+      slowType("You have levelled up your charisma. Congratulations, you sexy beast, the laws of physics bend to your way with words :flushed:. Your charisma is now",self.charisma,".")
+    elif levelChoice=="E" or "AGI":
+      self.agility+=1
+      slowType("You have levelled up your agility. Congratulations, you speedy boi, may you move faster than le jongleur eventually.",self.agility,".")
+  except ValueError:
+      slowType("Please select a valid option, note that the system is cap sensitive.")
 
 class Adib():
     def __init__(self): #overall balanced
@@ -214,15 +244,17 @@ def battle(player, opponent):
         dmgP = 0 #dmg done to player
         rand = 0 #the 'random' variable, see dmg calculator in any case below
         screenClear()
-        print("Your HP:      ", player.hp, "\nOpponents HP: ", opponent.hp, "\n\nWhat will you do?")
+        healthBar(player)
+        healthBar(opponent)
+        print("\nWhat will you do?")
         c.red("Attack:")
-        print("1)Swift face punch from the left.\n2)Break dance hit from the right.\n3)Drop kick from the front.")
+        print("1)Swift punch to the face\n2)Drop kick strike.\n3)Break dance on the monkster.") #Change if you want but 1) light attack 2) medium attack 3) heavy attack
         c.red("Block:")
         print("4)Cover your left.\n5)Cover your right.\n6)Brace yourself for the hit.")
         c.red("Other:")
         print("7)Run away.\n8)Beg for mercy/surrender.\n\n")
         while True:
-            choices = []
+            choices = [] #REMOVE
             choices.append(str(input("Enter the number code of the action you want to take: ")))
             if int(choices[0]) < 1 or int(choices[0]) > 8:
                 c.red("Please input a number displayed.")     
@@ -236,45 +268,54 @@ def battle(player, opponent):
         #below is the opponent decision algorithm
 
     #IT IS UNFINISHED FOR NOW  also dont worry i will optimise it with match cases later
-        if choices[0] != '7':
-            if choices[0] != '8':
-                if opponent.intellect > player.intellect: #opponent makes a 'smart' decision
-                    if opponent.hp <= 15: #if the opponent has low hp, they try to run or surrender
-                        choices = []
-                        choices.append('0')
-                        if r.randint(1,2) == 1:
-                            choices.append(7) #they run
-                        else:
-                            choices.append(8) #they surrender
-                    elif choices[0] <= '3':
-                        if r.randint(1,4) == 2: #one on four chances of not blocking
-                            choices.append(r.randint(1,3))
-                        else:
-                            choices.append(r.randint(4,6)) #if player attack, then Block
-                    elif choices[0] >= '5' and choices[0] <= '6':
-                        if r.randint(1,4) == 2: #one on four chances of not attacking
-                            choices.append(r.randint(4,6))
-                        else:
-                            choices.append(r.randint(1,3)) #if player blocks, then attack
-                    
-                else:
-                    if r.randint(1,3): 
-                        choices.append((r.randint(1,6)))
+        if choices[0] != '7' and choices[0] != '8':
+            if opponent.intellect > player.intellect: #opponent makesa 'smart' decision
+                if opponent.hp <= 15: #if the opponent has low hp, they try to run or surrender
+                    choices = []
+                    choices.append('0')
+                    if r.randint(1,2) == 1:
+                        choices.append(7) #they run
                     else:
-                        choices.append((r.randint(1,8)))
+                        choices.append(8) #they surrender
+                elif choices[0] <= '3':
+                    if r.randint(1,4) == 2: #one on four chances of not blocking
+                        choices.append(r.randint(1,3))
+                    else:
+                        choices.append(r.randint(4,6)) #if player attack, then Block
+                elif choices[0] >= '5' and choices[0] <= '6':
+                    if r.randint(1,4) == 2: #one on four chances of not attacking
+                        choices.append(r.randint(4,6))
+                    else:
+                        choices.append(r.randint(1,3)) #if player blocks, then attack
+                
             else:
-                choices.append(0)
+                if r.randint(1,3): 
+                    choices.append((r.randint(1,6)))
+                else:
+                    choices.append((r.randint(1,8)))
         else:
             choices.append(0)
+
+        choices = []
+        choices.append(str(1))
+        choices.append(int(1))
+
         screenClear()
         print(choices) #REMOVE LATER
+        b.Dmg()
         match choices:
             case '1', 1: #player: punch, opp: punch
                 if r.randint(1,2) == 1:
                     rand = r.randint(7,11)
-                    dmgP = (rand*opponent.attack)//player.defence
-                    dmgO = (rand*player.attack)//opponent.defence
-                    slowType("You both throw a punch at each other.\nYou inflicted \033[1;31;48m"+str(dmgO)+"00000\033[1;37;48m point of damage while taking \033[1;31;48m"+str(dmgP)+"00000\033[1;37;48m back.")  
+                    base_player_damage=rand*opponent.attack
+                    base_player_defense=(rand*opponent.attack)*(player.defence/10)
+                    base_opponent_damage=rand*player.attack
+                    base_opponent_defense=(rand*player.attack)*(opponent.defence/10)
+                    dmgP = base_player_damage-base_player_defense
+                    dmgO = base_opponent_damage-base_opponent_defense
+                    rounded_dmgP=round(dmgP,0)
+                    rounded_dmgO=round(dmgO,0)
+                    slowType("You both throw a punch at each other.\nYou inflicted \033[1;31;48m"+str(rounded_dmgO)+"00000\033[1;37;48m point of damage while taking \033[1;31;48m"+str(rounded_dmgP)+"00000\033[1;37;48m back.")  
                 else:
                     slowType("You both try to throw a punch at each other, however both powers cancel each other out thus causing \033[1;31;48mno damage \033[1;37;48mto be done at all.")
             case '2', 1: 
@@ -392,7 +433,7 @@ def battle(player, opponent):
                     battleOver = 2
                     slowType("Darn.. "+opponent.name+"\033[1;31;48m got away \033[1;37;48m.")
                 else:
-                    slowType("You caught up to "+opponent.name+" and dragged him by the leg to finish the fight. Not today cheif.")
+                    slowType("You caught up to "+opponent.name+" and dragged him by the leg to finish the fight. Not today chief.")
 
             case ['4', 4] | ['5', 4] | ['6', 4] | ['4', 5] | ['5', 5] | ['6', 5] | ['4', 6] | ['5', 6] | ['6', 6]: #for any case that has both sides chosing a defensive move
                 slowType("You both played defensively causing \033[1;31;48mno damage \033[1;37;48mto be done at all.")
@@ -400,8 +441,8 @@ def battle(player, opponent):
                 c.red("An error occured. Please Try again.")     
                 pressEnter()
     
-        opponent.hp -= dmgO
-        player.hp -= dmgP
+        opponent.hp -= int(rounded_dmgO)
+        player.hp -= int(rounded_dmgP)
         if opponent.hp <= 0 and player.hp <= 0:
             battleOver = 3  #if its a tie
             opponent.hp = 0
