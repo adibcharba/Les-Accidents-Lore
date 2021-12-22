@@ -1,1 +1,0 @@
-{"player": [{"character": "Scott", "level": "6", "attack": "3"}]}

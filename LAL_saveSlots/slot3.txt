@@ -1,0 +1,1 @@
+{"player": [{"character": "Adib", "level": "5", "xp": "13", "hp": "87", "attack": "3", "defence": "2", "charisma": "4", "intellect": "3", "agility": "5"}], "progression": []}

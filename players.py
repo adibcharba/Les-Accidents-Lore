@@ -2,7 +2,55 @@ from basics import screenClear, pressEnter, slowType, confirm
 import colours as c
 import battle as b
 import random as r
-import time
+import time, json
+
+def save(slot, self='blank', newFile=False):
+
+    save = {}
+    save['player'] = []
+    save['progression'] = []
+    if newFile == True:
+        slowType("Creating save file... ")
+        save['player'].append({
+        'character': 'blank',
+        'level': '0',
+        'xp': '0',
+        'hp': '0',
+        'attack': '0',
+        'defence': '0',
+        'charisma': '0',
+        'intellect': '0',
+        'agility': '0',
+        })
+    else:
+        slowType("Do not turn off the power. Saving your progress... ")
+        save['player'].append({
+        'character': self.name,
+        'level': self.level,
+        'xp': self.xp,
+        'hp': self.hp,
+        'attack': self.attack,
+        'defence': self.defence,
+        'charisma': self.charisma,
+        'intellect': self.intellect,
+        'agility': self.agility,
+        })
+
+        self.attack = 3
+        self.defence = 3
+        self.charisma = 2
+        self.intellect = 2
+        self.agility = 3
+        self.hp = 100
+        self.xp = 0
+        self.level = 1
+        self.name = 'Adib'
+
+    with open("LAL_saveSlots/slot"+slot+'.txt', 'w') as outfile:
+        json.dump(save, outfile)
+    time.sleep(1) #simulates saving time (we just have so little data to save..)
+    slowType("All done.")
+
 
 def stats(self):
     atStat = "Attack:    "
