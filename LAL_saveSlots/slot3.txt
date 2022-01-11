@@ -1,1 +1,1 @@
-{"player": [{"character": "Adib", "level": "5", "xp": "13", "hp": "87", "attack": "3", "defence": "2", "charisma": "4", "intellect": "3", "agility": "5"}], "progression": []}
+{"player": [{"character": "blank", "level": "0", "xp": "0", "hp": "0", "attack": "0", "defence": "0", "charisma": "0", "intellect": "0", "agility": "0"}], "progression": []}

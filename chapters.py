@@ -1,6 +1,7 @@
 import colours as c
 from basics import screenClear, pressEnter, confirm, slowType
 import time
+from bigText import bigText
 
 def c1():
     screenClear()
@@ -16,9 +17,11 @@ def c1():
     time.sleep(2)
     screenClear()
     time.sleep(0.5)
-    slowType("Les Accidents Inc. proudly presents:", 0.1)
+    slowType("Les Accidents Inc. proudly presents:\n", 0.1)
     time.sleep(3)
-    slowType("\n\nLES ACCIDENTS LORE: \033[1;31;48mTHE GAME\033[1;37;48m", 0.1)
+    bigText("LES ACCIDENTS:")
+    time.sleep(1)
+    bigText("THE GAME", "red")
     time.sleep(0.5)
     pressEnter()
 

@@ -36,15 +36,15 @@ def save(slot, self='blank', newFile=False):
         'agility': self.agility,
         })
 
-        self.attack = 3
-        self.defence = 3
-        self.charisma = 2
-        self.intellect = 2
-        self.agility = 3
-        self.hp = 100
-        self.xp = 0
-        self.level = 1
-        self.name = 'Adib'
+#        self.attack = 3
+#        self.defence = 3
+#        self.charisma = 2
+#        self.intellect = 2
+#        self.agility = 3
+#        self.hp = 100
+#        self.xp = 0
+#        self.level = 1
+#        self.name = 'Adib'
 
     with open("LAL_saveSlots/slot"+slot+'.txt', 'w') as outfile:
         json.dump(save, outfile)

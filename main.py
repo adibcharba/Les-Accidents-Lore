@@ -5,6 +5,9 @@ import chapters as chap
 import players as p
 from players import save
 import time, os, sys, json
+from bigText import bigText
+from playsound import playsound
+import sound
 #import pygame
 
 #fixed the pygame.base issue with 'pip3'
@@ -15,30 +18,40 @@ import time, os, sys, json
   #      if event.key == pygame.K_RETURN:    
    #         print("lmfao")
 
-screenClear()
-for i in range(1, 4): #repeats 3 times for each slot (theres 3)
-    if os.path.isfile("LAL_saveSlots/slot"+str(i)+".txt"): #opens a file
-        with open("LAL_saveSlots/slot"+str(i)+".txt") as save_file: data = json.load(save_file) #reads it
-        for k in data['player']: name = k['character']; level = k['level'] #finds the name and level inside that save file
-        print("Slot "+str(i)+": "+name+", Level "+level) #prints that muzaphuka
-    else: #if it does not find that file, it says empty
-        print("Slot "+str(i)+": --Empty--")
+
+
             
 while True:
-    slotSelection = str(input("\nType the slot number of your save file (or 'del'): ")) #asks what file you wanna use 
+    screenClear()
+    for i in range(1, 4): #repeats 3 times for each slot (theres 3)
+        if os.path.isfile("LAL_saveSlots/slot"+str(i)+".txt"): #opens a file
+            with open("LAL_saveSlots/slot"+str(i)+".txt") as save_file: data = json.load(save_file) #reads it
+            for k in data['player']: name = k['character']; level = k['level'] #finds the name and level inside that save file
+            print("Slot "+str(i)+": "+name+", Level "+level) #prints that muzaphuka
+        else: #if it does not find that file, it says empty
+            print("Slot "+str(i)+": --Empty--")
+        
+    slotSelection = str(input("\nType the slot number of your save file (or 'delete'): ")) #asks what file you wanna use 
     if slotSelection.lower() == 'del' or slotSelection.lower() == 'delete': #checks if a file wants to be deleted
         while True:
             slotSelection = str(input("\nWhich save file you would you like to delete? (or type 'cancel'): ")) #asks what file to be deleted
             if slotSelection == 'cancel': #if user wants to cancel it breaks
                 break
             else:
-                if confirm("Are you sure you want to delete this save file? It will be gone F O R E V E R!! (y or n): ") == True:#confirmation
+                if confirm("Are you sure you want to delete this save file? It will be gone\033[1;31;48m F O R E V E R!!\033[1;37;48m (y or n): ") == True and os.path.isfile("LAL_saveSlots/slot"+str(i)+".txt") == True:#confirmation
                     os.remove("LAL_saveSlots/slot"+slotSelection+".txt") #deletes the file
                 break
+    elif slotSelection.lower() == 'debug':#REMOVE
+        sound.music()
+        bigText("LES ACCIDENTS:", "white", "doom")
+        time.sleep(1)
+        bigText("THE GAME", "red")
+        time.sleep(10)
+        break
     
     if slotSelection == '1' or slotSelection == '2' or slotSelection == '3':
         try: #tries the value inputted
-            slowType("Loading save file... ") 
+            slowType("\nLoading save file... ") 
             with open("LAL_saveSlots/slot"+slotSelection+".txt") as save_file:
                 data = json.load(save_file)
                 for i in data['player']: player = i['character'];
@@ -50,7 +63,7 @@ while True:
             
         except: #if it fails, it asks if you want to create a save file, or that the file does not exist
         
-                if confirm("This slot is empty, would you like to use it? (y or n)") == True:
+                if confirm("This slot is empty, would you like to use it? (y or n): ") == True:
                     screenClear()
                     save(slotSelection, newFile=True) #saves using the save function in basics.py
                     fileLoaded = False

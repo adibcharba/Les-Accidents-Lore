@@ -1,4 +1,12 @@
 [[package]]
+name = "colorama"
+version = "0.4.4"
+description = "Cross-platform colored terminal text."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+
+[[package]]
 name = "colours"
 version = "0.3"
 description = "Easy CLI colours for Python applications"
@@ -15,6 +23,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pyfiglet"
+version = "0.8.post1"
+description = "Pure-python FIGlet implementation"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pygame"
 version = "2.1.0"
 description = "Python Game Development"
@@ -22,17 +38,33 @@ category = "main"
 optional = false
 python-versions = ">=3.6"
 
+[[package]]
+name = "termcolor"
+version = "1.1.0"
+description = "ANSII Color formatting for output in terminal."
+category = "main"
+optional = false
+python-versions = "*"
+
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "248cde9c19413d22ccd2318676b719ce98d26eef2e27aed81a754352d3b8891c"
+content-hash = "ca384684f4f11832fc97c58fe19eb05d0d3439507c88ad1f3d798ae49d677cbd"
 
 [metadata.files]
+colorama = [
+    {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
+    {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
+]
 colours = [
     {file = "colours-0.3.tar.gz", hash = "sha256:0f269fb93565890a003958b9dc8395feff2719d12dcc8228b202ebf8ec12d4b6"},
 ]
 playsound = [
     {file = "playsound-1.3.0.tar.gz", hash = "sha256:cc6ed11d773034b0ef624e6bb4bf50f4b76b8414a59ce6d38afb89b423297ced"},
+]
+pyfiglet = [
+    {file = "pyfiglet-0.8.post1-py2.py3-none-any.whl", hash = "sha256:d555bcea17fbeaf70eaefa48bb119352487e629c9b56f30f383e2c62dd67a01c"},
+    {file = "pyfiglet-0.8.post1.tar.gz", hash = "sha256:c6c2321755d09267b438ec7b936825a4910fec696292139e664ca8670e103639"},
 ]
 pygame = [
     {file = "pygame-2.1.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:c84a93e6d33dafce9e25080ac557342333e15ef7e378ba84cb6181c52a8fd663"},
@@ -93,4 +125,7 @@ pygame = [
     {file = "pygame-2.1.0-pp37-pypy37_pp73-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:0227728f2ef751fac43b89f4bcc5c65ce39c855b2a3391ddf2e6024dd667e6bd"},
     {file = "pygame-2.1.0-pp37-pypy37_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4ab5aba8677d135b94c4714e8256efdfffefc164f354a4d05b846588caf43b99"},
     {file = "pygame-2.1.0.tar.gz", hash = "sha256:232e51104db0e573221660d172af8e6fc2c0fda183c5dbf2aa52170f29aa9ec9"},
+]
+termcolor = [
+    {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
 ]
