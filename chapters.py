@@ -2,6 +2,7 @@ import colours as c
 from basics import screenClear, pressEnter, confirm, slowType
 import time
 from bigText import bigText
+import sound
 
 def c1():
     screenClear()
@@ -18,9 +19,10 @@ def c1():
     screenClear()
     time.sleep(0.5)
     slowType("Les Accidents Inc. proudly presents:\n", 0.1)
-    time.sleep(3)
+    time.sleep(2.9)
+    sound.music("intro")
     bigText("LES ACCIDENTS:")
-    time.sleep(1)
+    time.sleep(8.3)
     bigText("THE GAME", "red")
     time.sleep(0.5)
     pressEnter()
@@ -64,7 +66,6 @@ def c1():
     slowType("Because slowly and surely", 0.06)
     slowType("\n\033[1;31;48mHe was consumed, no, some would say VORED, by Les Accidents\033[1;37;48m", 0.1)
 
- #YOO THIS IS SICK LMFAOOO KEEP IT UP
 
     print("Would you like to preceed to the next chapter?")
     if confirm() == True:

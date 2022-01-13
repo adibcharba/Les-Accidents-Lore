@@ -6,20 +6,7 @@ import players as p
 from players import save
 import time, os, sys, json
 from bigText import bigText
-from playsound import playsound
-import sound
-#import pygame
-
-#fixed the pygame.base issue with 'pip3'
-#but now its confused with the event attribute.... i hate this
-
-#for event in pygame.event.get():
- #   if event.type == pygame.KEYDOWN:
-  #      if event.key == pygame.K_RETURN:    
-   #         print("lmfao")
-
-
-
+#import sound #MUSIC
             
 while True:
     screenClear()
@@ -41,12 +28,14 @@ while True:
                 if confirm("Are you sure you want to delete this save file? It will be gone\033[1;31;48m F O R E V E R!!\033[1;37;48m (y or n): ") == True and os.path.isfile("LAL_saveSlots/slot"+str(i)+".txt") == True:#confirmation
                     os.remove("LAL_saveSlots/slot"+slotSelection+".txt") #deletes the file
                 break
+    
     elif slotSelection.lower() == 'debug':#REMOVE
-        sound.music()
+        sound.music("intro")
         bigText("LES ACCIDENTS:", "white", "doom")
-        time.sleep(1)
+        time.sleep(8.3)
         bigText("THE GAME", "red")
-        time.sleep(10)
+        while(1):
+          time.sleep(1)
         break
     
     if slotSelection == '1' or slotSelection == '2' or slotSelection == '3':

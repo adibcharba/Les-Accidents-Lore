@@ -1,13 +1,15 @@
-from basics import screenClear, pressEnter, confirm, slowType
-import colours as c
-import chapters as chap
-import players as p
-from players import save
-import time, os, sys, json
-from bigText import bigText
-from playsound import playsound
-
-
-def music():
-  print("music")
-  playsound("Funky.wav", False)
+#import os
+#from playsound import playsound
+#import winsound
+#
+#def stop(): #abreviated function to stop music
+#    winsound.PlaySound(None, winsound.SND_PURGE)
+#
+#def music(file, loop = 0): #function to play music >:)
+#    audioFile = os.path.dirname(__file__) + "\\music\\" + file + ".wav"
+#    print(str(audioFile))
+#    if loop == 1:
+#        winsound.PlaySound(audioFile, winsound.SND_LOOP + winsound.SND_ASYNC)
+#    else:
+#        winsound.PlaySound(audioFile, winsound.SND_ASYNC)
+#MUSIC

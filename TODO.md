@@ -1,5 +1,7 @@
 List of things to do / change
 -
+- decide on what the game/story will be
+- then learn how to use github and then we're good to do commits on our own branch and merge requests when ready
 
 Saving feature:
 -
