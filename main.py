@@ -7,7 +7,7 @@ from players import save
 import time, os, sys, json
 from bigText import bigText
 import sound #MUSIC
-            
+#hentai
 while True:
     screenClear()
     for i in range(1, 4): #repeats 3 times for each slot (theres 3)
