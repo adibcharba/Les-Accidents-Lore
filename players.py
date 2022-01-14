@@ -477,7 +477,7 @@ def battle(player, opponent):
                 else:
                     slowType(opponent.name+" caught you by the leg and dragged you back to continue the fight. Not today, coward.")
             case '0', 7: #opponent runs
-                if oppoenent.agility > player.agility:
+                if opponent.agility > player.agility:
                     battleOver = 2
                     slowType("Darn.. "+opponent.name+"\033[1;31;48m got away \033[1;37;48m.")
                 else:
