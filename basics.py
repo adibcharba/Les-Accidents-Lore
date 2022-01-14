@@ -28,6 +28,6 @@ def slowType(text, delay=0.03): #slowly prints text, and skipps to the end if a 
             sys.stdout.flush()
             time.sleep(delay)
         except KeyboardInterrupt: #only works with ctrl+c
-            delay = 0 #would like to add more possibilities with pygame but it's a bit broken..
+            delay = 0
 
 
