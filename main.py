@@ -6,7 +6,7 @@ import players as p
 from players import save
 import time, os, sys, json
 from bigText import bigText
-#import sound #MUSIC
+import sound #MUSIC
             
 while True:
     screenClear()
