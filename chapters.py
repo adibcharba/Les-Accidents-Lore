@@ -14,7 +14,7 @@ def c1():
     time.sleep(1)
     slowType("..a place..\n\n", 0.1)
     time.sleep(1)
-    slowType("..where \033[1;31;48mANYTHING\033[1;37;48m can happen.", 0.1)
+    slowType("..where \033[1;31;48ANYTHING\033[1;37;48 can happen.", 0.1)
     time.sleep(2)
     screenClear()
     time.sleep(0.5)
